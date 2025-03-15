@@ -3,7 +3,7 @@ pragma solidity ^0.8.20;
 
 import {TransparentUpgradeableProxy} from "@openzeppelin/contracts/proxy/transparent/TransparentUpgradeableProxy.sol";
 
-contract HiringProcessProxy is TransparentUpgradeableProxy {
+contract HiringProxy is TransparentUpgradeableProxy {
     event ContractUpgraded(address newImplementation); 
 
     modifier onlyProxyAdmin() {
@@ -16,7 +16,7 @@ contract HiringProcessProxy is TransparentUpgradeableProxy {
     {}
 
     function upgradeTo(address newImplementation) external onlyProxyAdmin {
-        _upgradeTo(newImplementation);
+        upgradeToAndCall(newImplementation, "");
         emit ContractUpgraded(newImplementation);
     }
 

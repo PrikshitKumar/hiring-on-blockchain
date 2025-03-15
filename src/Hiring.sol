@@ -33,7 +33,7 @@ contract HiringProcess is Initializable, OwnableUpgradeable, HiringStorage {
         emit ApplicantApplied(totalApplicants, _jobId, msg.sender, hasApplied[msg.sender][_jobId]);
     }
 
-    function recordInterview(uint256 _jobId, address _applicantAddress, uint256 _round, string memory _feedback, bool _passed) public onlyOwner {
+    function recordInterview(uint256 _jobId, address _applicantAddress, uint256 _round, string memory _feedback, bool _passed) public {
         require(applicants[_applicantAddress][_jobId].exists, "Applicant does not exist");
         require(!applicants[_applicantAddress][_jobId].isHired, "Applicant is already hired");
 
