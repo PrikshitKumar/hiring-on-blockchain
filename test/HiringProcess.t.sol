@@ -57,6 +57,15 @@ contract HiringProcessTest is Test {
         assertEq(resumeHash, "resumeHash1");
         assertTrue(exists);
 
+        // Contract Upgrade: Deploy a new implementation
+        vm.startPrank(recruiter);
+        HiringProcess newImplementation = new HiringProcess();
+        console.log("New HiringProcess Implementation Address:", address(newImplementation));
+
+        // Upgrade proxy to new implementation
+        HiringProxy(payable(address(proxy))).upgradeTo(address(newImplementation));
+        console.log("Proxy Address:", address(proxy));
+
         // Interviewer started the interviewing process
         vm.startPrank(interviewer);
         proxy.recordInterview(1, applicant, 1, "Good skills", true);
